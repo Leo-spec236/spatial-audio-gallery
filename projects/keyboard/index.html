@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#222e32"><title>M / 87 · 机械键盘物理实验室</title><link rel="stylesheet" href="./src/style.css"><script type="importmap">{"imports":{"three":"./vendor/three/three.module.js","three/addons/":"./vendor/three/addons/"}}</script></head>
+<body>
+  <header class="app-header">
+    <a class="brand" href="../../" title="返回项目展厅" aria-label="返回项目展厅"><span class="brand-mark">M</span><span><strong>MECHANISM <i>/ 87</i></strong><small>← 返回项目展厅</small></span></a>
+    <div class="header-meta"><span class="live-dot"></span> 实时机械模拟 <span class="divider"></span><span class="mono" id="fps-value">—</span> FPS</div>
+    <button id="show-method" class="method-button">模型与公式 <span>↗</span></button>
+  </header>
+  <main class="workspace">
+    <section class="lab-area" aria-label="键盘三维实验">
+      <div class="view-toolbar"><div class="view-tabs" aria-label="观察模式"><button data-view="assembled" class="active" aria-pressed="true">整机</button><button data-view="transparent" aria-pressed="false">透明</button><button data-view="exploded" aria-pressed="false">拆解</button></div><div class="transport"><button id="slow" aria-pressed="false" title="五分之一速度">0.2× 慢动作</button><button id="pause" aria-pressed="false">Ⅱ <span>暂停</span></button><button id="reset" title="所有按键复位">↻ 复位</button></div></div>
+      <div class="stage-frame">
+        <div class="stage-heading"><span class="eyebrow">TKL / ANSI LAYOUT</span><h1>从一个弹簧，到 87 个独立机构。</h1></div>
+        <div id="viewport" class="viewport"></div>
+        <div class="stage-bottom"><span><i class="orange-dot"></i> 点击键帽按压 · 拖动空白旋转 · 滚轮缩放</span><button id="view-reset" title="恢复摄像机视角">↺ 视角</button></div>
+        <div class="active-count"><b id="pressed-count">0</b><span> / 87 触发</span></div>
+      </div>
+      <div class="analysis-grid">
+        <section class="panel detail-panel"><div class="panel-heading"><div><span class="eyebrow">INSIDE THE SWITCH</span><h2>轴体剖面</h2></div><label class="compact-toggle"><input id="detail-explode" type="checkbox">展开部件</label></div><div id="switch-viewport" class="switch-viewport"></div><div class="detail-caption">键帽 · 轴心 · 弹簧 · 触片 · 下座 <span>悬停查看名称</span></div></section>
+        <section class="panel curve-panel"><div class="panel-heading"><div><span class="eyebrow">FORCE / TRAVEL</span><h2>力 — 行程</h2></div><div class="curve-legend"><span>压下</span><span>回弹</span></div></div><div class="chart-wrap"><canvas id="force-chart" aria-label="选中按键的准静态力与行程参考曲线"></canvas></div><p class="panel-note">准静态摩擦包络 · 圆点为当前行程</p></section>
+      </div>
+      <section class="typing-panel"><div><label class="capture-label"><input id="capture-input" type="checkbox">实体键盘映射</label><span>开启后在三维视图中试打</span><button id="clear-typing">清空</button></div><textarea id="typing-output" readonly placeholder="每次真实触点触发，会在这里留下字符……" aria-label="页面内试打结果"></textarea></section>
+    </section>
+    <aside class="inspector" aria-label="按键参数与状态">
+      <div class="inspector-title"><div><span class="eyebrow">SELECTED KEY</span><h2><span id="selected-key">A</span><small id="selected-type">线性轴</small></h2></div><span id="contact-state" class="contact-state">未触发</span></div>
+      <div class="metrics"><div><span>位移 <small>mm</small></span><strong id="displacement-value">0.00</strong></div><div><span>速度 <small>mm/s</small></span><strong id="velocity-value">0.0</strong></div><div><span>弹簧力 <small>cN</small></span><strong id="spring-force-value">29.7</strong></div><div><span>外加压力 <small>cN</small></span><strong id="external-force-value">0.0</strong></div></div>
+      <div class="inspector-section"><div class="section-heading"><h3>试压与行程</h3><span>01</span></div><label class="range-label" for="press-force">模拟按压力 <output id="press-force-value">70 cN</output></label><input id="press-force" type="range" min="0" max="1.5" step="0.01" value="0.7"><button id="press-test" class="press-button">↓ <span>按住试压</span><small>松开回弹</small></button><label class="range-label" for="hold-displacement">保持位移 <output id="hold-displacement-value">0.00 mm</output></label><input id="hold-displacement" type="range" min="0" max="4" step="0.01" value="0"><div class="hold-footer"><span>拖动滑块锁定行程</span><button id="release-hold">释放 ↗</button></div><p class="micro-note">实体键盘只提供按下信号，压力取自上方设置。</p></div>
+      <div class="inspector-section"><div class="section-heading"><h3>轴体与结构</h3><span>02</span></div><div class="select-grid"><label>轴体类型<select id="switch-type"><option value="linear">线性轴</option><option value="tactile">段落轴</option></select></label><label>应用范围<select id="scope"><option value="selected">当前按键</option><option value="all">全部 87 键</option></select></label></div><div class="calculated"><span>计算刚度 <b id="stiffness-value">67.44 N/m</b></span><span>总行程 <b id="travel-value">4.00 mm</b></span></div>
+      <div class="parameter-grid">
+        <label>钢丝线径 <span>mm</span><input data-param="wireDiameter" data-unit-scale="0.001" type="number" value="0.22" aria-label="钢丝线径 mm"></label>
+        <label>平均圈径 <span>mm</span><input data-param="meanDiameter" data-unit-scale="0.001" type="number" value="3.5" aria-label="平均圈径 mm"></label>
+        <label>有效圈数 <span>圈</span><input data-param="activeCoils" data-unit-scale="1" type="number" value="8" aria-label="有效圈数"></label>
+        <label>自由长度 <span>mm</span><input data-param="freeLength" data-unit-scale="0.001" type="number" value="15" aria-label="自由长度 mm"></label>
+        <label>安装预压 <span>mm</span><input data-param="preload" data-unit-scale="0.001" type="number" value="4.4" aria-label="安装预压 mm"></label>
+        <label>运动质量 <span>g</span><input data-param="mass" data-unit-scale="0.001" type="number" value="3" aria-label="运动质量 g"></label>
+        <label>黏性阻尼 <span>N·s/m</span><input data-param="damping" data-unit-scale="1" type="number" value="0.25" aria-label="黏性阻尼"></label>
+        <label>总行程 <span>mm</span><input data-param="travel" data-unit-scale="0.001" type="number" value="4" aria-label="总行程 mm"></label>
+        <label>触发位置 <span>mm</span><input data-param="actuation" data-unit-scale="0.001" type="number" value="2" aria-label="触发位置 mm"></label>
+        <label>复位位置 <span>mm</span><input data-param="resetPoint" data-unit-scale="0.001" type="number" value="1.8" aria-label="复位位置 mm"></label>
+      </div><p id="parameter-error" class="parameter-error" role="alert"></p><button id="apply-parameters" class="apply-button">应用结构参数 <span>→</span></button><p class="micro-note">校验装配后复位目标按键。改变几何会同步改变弹力。</p></div>
+      <div class="inspector-footer"><span class="live-dot"></span> 独立求解 87 个按键 · 固定步长 0.25 ms</div>
+    </aside>
+  </main>
+  <footer class="status-bar"><span id="status" role="status">正在装配机械键盘……</span><span>THREE.JS / MECHANISM LAB</span></footer>
+  <dialog id="method-dialog"><button id="close-method" aria-label="关闭模型说明">×</button><span class="eyebrow">THE MECHANICS</span><h2>让结构决定运动。</h2><p>每个按键是独立的轴向质量—弹簧系统。键帽、轴心和弹簧长度都来自同一数值状态，拆解仅改变展示位置。</p><h3>弹簧刚度</h3><div class="formula">k = Gd⁴ / (8D³Nₐ)　 Fₛ = k(δ₀ + q)</div><p>d 为钢丝直径，D 为平均圈径，Nₐ 为有效圈数，G 为剪切模量，δ₀ 为预压。线径提高 10%，刚度约增加 46%。</p><h3>动力学与段落感</h3><div class="formula">mq̈ = F按压 + mg − Fₛ − cq̇ − F触片 − F摩擦</div><p>段落轴的凸轮改变簧片形变量 δℓ(q)，由储能 Uℓ = ½kℓδℓ² 对行程求导，得到阻力峰和回落。固定 0.25 ms 步长积分；顶部与触底止挡耗散碰撞能量。</p><h3>两种控制方式</h3><p>“按住试压”施加持续外力，由动力学计算位移。“保持位移”施加位置约束，松开后恢复自由回弹。曲线为准静态摩擦包络，读数为瞬时受力。</p><h3>模型边界</h3><p>这是可解释的实时机械近似，预设并非品牌手感复刻。键盘固定，长键采用卫星轴与连杆同步升降，不计算偏心倾斜、材料疲劳或电接触抖动。</p><p class="method-links"><a href="https://www.formosaspring.com/en/articles/compression-spring-design-guide/" target="_blank" rel="noreferrer">压簧公式依据 ↗</a><a href="https://www.cherry.de/en-us/product/mx2a-red" target="_blank" rel="noreferrer">公开结构与行程参考 ↗</a></p></dialog>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

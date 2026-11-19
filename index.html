@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>项目展厅 · 空间音频</title>
+<style>
+:root{color-scheme:light;font:16px/1.65 "Segoe UI","Microsoft YaHei",sans-serif;color:#172d2c;background:#f5f4ec}*{box-sizing:border-box}body{max-width:1200px;margin:auto;padding:0 clamp(20px,6vw,80px) 60px}header{padding:23px 0 17px;border-bottom:1px solid #aeb8ac;display:flex;gap:10px;align-items:center;font-weight:650;letter-spacing:.06em}header i{font-size:22px;font-style:normal;color:#21705f}h1{font-size:clamp(38px,6vw,72px);line-height:1.15;letter-spacing:-.055em;margin:54px 0 28px}article{margin:16px 0 30px}article a{display:grid;grid-template-columns:1.6fr 1fr;text-decoration:none;color:inherit;background:#e6ebe1;border:1px solid #bdc8bf;border-radius:16px;overflow:hidden}a:focus-visible{outline:4px solid #047b67;outline-offset:4px}.image{margin:0;min-height:250px;display:grid;background:#152a2c}.image img{width:100%;height:100%;object-fit:cover}.copy{padding:clamp(22px,4vw,46px);display:flex;align-items:flex-start;justify-content:center;flex-direction:column}h2{font-size:clamp(24px,3vw,38px);line-height:1.2;margin:0}.copy p{color:#41544f;font-size:16px;margin:16px 0 28px}.open{border-radius:6px;background:#183e37;color:white;padding:8px 17px;font-weight:600}a:hover .open{background:#28634f}@media(max-width:700px){article a{grid-template-columns:1fr}.image{min-height:140px}h1{margin-top:30px}}
+</style></head><body><header><i aria-hidden="true">◒</i>空间音频实验室</header><main><h1>交互项目展厅</h1><div id="projects"></div></main>
+<script type="module">
+import {projects} from './projects.js';
+for(const p of projects){
+  const card=document.createElement('article'),link=document.createElement('a');link.href=p.url;
+  if(p.cover){const figure=document.createElement('figure'),img=document.createElement('img');figure.className='image';img.src=p.cover;img.alt=p.alt||'';figure.append(img);link.append(figure);}
+  const copy=document.createElement('div'),name=document.createElement('h2'),desc=document.createElement('p'),open=document.createElement('span');copy.className='copy';name.textContent=p.title;desc.textContent=p.description;open.className='open';open.textContent='进入体验 ↗';copy.append(name,desc,open);link.append(copy);card.append(link);document.querySelector('#projects').append(card);
+}
+</script><!-- door-comparison:start --><style>
+#door-comparison{box-sizing:border-box;max-width:1120px;margin:28px auto;padding:0;display:grid;gap:28px;font-family:inherit;color:#103439;background:transparent}
+#door-comparison *{box-sizing:border-box}
+#door-comparison .door-project{display:grid;grid-template-columns:61.5% 38.5%;border:1px solid #b7c8bb;border-radius:16px;overflow:hidden;background:#e6ebe1;min-width:0}
+#door-comparison .door-cover{display:block;width:100%;height:100%;min-height:290px;object-fit:cover;background:#eae9e5}
+#door-comparison .door-copy{padding:40px 36px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+#door-comparison h2{font-size:clamp(23px,2.7vw,36px);line-height:1.2;margin:0 0 18px;font-weight:800;letter-spacing:-.6px;color:#103439}
+#door-comparison p{font-size:15px;line-height:1.8;margin:0 0 24px;color:#345852}
+#door-comparison a.door-enter{display:inline-block;padding:12px 18px;background:#173f35;color:#fff;border-radius:5px;text-decoration:none;font-weight:700;font-size:14px}
+#door-comparison a.door-enter:hover{background:#285c4c}#door-comparison a:focus-visible{outline:3px solid #6e9475;outline-offset:4px}
+@media(max-width:650px){#door-comparison .door-project{grid-template-columns:1fr}#door-comparison .door-cover{min-height:0;aspect-ratio:16/9}#door-comparison .door-copy{padding:26px}#door-comparison{margin:24px 0}}
+</style><section id="door-comparison" aria-label="空间音频木门项目"><article class="door-project"><img class="door-cover" src="./door-covers/door-v1.svg" alt="带格栅玻璃和金属把手的木门插画"/><div class="door-copy"><h2>空间音频木门 ·<br>直接生成版</h2><p>DeepSeek 识别部件与交互，MMAudio 生成音效。敲击木质、玻璃和门框，拖动把手体验开关门。</p><a class="door-enter" href="./projects/door-generated/">进入体验 ↗</a></div></article><article class="door-project"><img class="door-cover" src="./door-covers/door-v1.svg" alt="带格栅玻璃和金属把手的木门插画"/><div class="door-copy"><h2>空间音频木门 ·<br>自动检查版</h2><p>复用相同声音配置，加入自动检查、裁剪与有限重试。戴上耳机，与直接生成版对比敲击效果。</p><a class="door-enter" href="./projects/door-checked/">进入体验 ↗</a></div></article></section><script>(()=>{function fit(){const section=document.getElementById('door-comparison');const link=[...document.querySelectorAll('a[href]')].find(a=>!section.contains(a)&&/keyboard/i.test(a.getAttribute('href')));if(!link)return;let e=link;while(e&&e!==document.body){const r=e.getBoundingClientRect();const cs=getComputedStyle(e);if(r.width>450&&(e.querySelector('img')||cs.display==='grid'||cs.display==='flex')){section.style.maxWidth=r.width+'px';break;}e=e.parentElement;}}window.addEventListener('load',fit);window.addEventListener('resize',fit);fit();})();</script><!-- door-comparison:end -->
+</body></html>

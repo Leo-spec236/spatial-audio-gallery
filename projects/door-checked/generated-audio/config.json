@@ -1,0 +1,99 @@
+{
+  "analysis": "The scene contains a door assembly with a wooden panel, glass insert, trim, metal handles, and a wooden frame with metal hinges. Interactions are captured with a click gesture: when a pointerup occurs without significant movement, a raycast tests visible surfaces among door parts, frame parts, and ground. If a door part is hit, a 'knock' event is recorded with objectId 'door-panel', the partId, and materialType from the hit part. If a frame part is hit, a 'knock' event is recorded with objectId 'door-frame', partId, and materialType. Handle parts are intercepted by a separate handle drag gesture and do not produce knock events. Door motion is controlled by dragging handles, which emits 'opening', 'closing', 'closed', 'opened', and 'motion_stopped' events. The 'closed' event occurs when the door reaches zero angle and may be accompanied by a latch click. No ground hits are recorded.",
+  "sounds": [
+    {
+      "id": "knock_panel_glass",
+      "evidence": "FILE door.js defines part('glass-insert',[...],glass,'glass'); FILE interaction.js records knock with materialType from hit object; hitPayload sets materialType to hit.object.userData.materialType.",
+      "prompt": "A single dry knock on a glass window pane, crisp high-pitched tap, no shatter, isolated impact.",
+      "negative_prompt": "speech, music, background noise",
+      "duration": 4,
+      "mode": "oneshot",
+      "match": {
+        "type": "knock",
+        "objectId": "door-panel",
+        "partId": "glass-insert",
+        "materialType": "glass"
+      },
+      "gain": 0.7
+    },
+    {
+      "id": "knock_panel_wood",
+      "evidence": "FILE door.js creates panel parts with materialType 'wood' (left-stile, right-stile, top-rail, bottom-rail, border, mullion, crossbar); FILE interaction.js records knock with objectId 'door-panel' and materialType from hit part.",
+      "prompt": "A single dry, close-up knock on a hollow wooden door panel, soft thud with slight resonance, isolated impact.",
+      "negative_prompt": "speech, music, background noise",
+      "duration": 4,
+      "mode": "oneshot",
+      "match": {
+        "type": "knock",
+        "objectId": "door-panel",
+        "materialType": "wood"
+      },
+      "gain": 0.7
+    },
+    {
+      "id": "knock_frame_metal_hinge",
+      "evidence": "FILE door.js creates hinge parts with partId 'hinge-0.35' and 'hinge-1.95' and materialType 'metal'; door.frame meshes get objectId 'door-frame'; FILE interaction.js records frame hits with objectId 'door-frame' and partId from hit object.",
+      "prompt": "A single metallic tap on a small door hinge, bright ping, dry isolated impact.",
+      "negative_prompt": "speech, music, background noise",
+      "duration": 4,
+      "mode": "oneshot",
+      "match": {
+        "type": "knock",
+        "objectId": "door-frame",
+        "partId": "hinge-*",
+        "materialType": "metal"
+      },
+      "gain": 0.6
+    },
+    {
+      "id": "knock_frame_wood",
+      "evidence": "FILE door.js creates frame-left, frame-right, frame-top with materialType 'wood' and assigns each mesh objectId 'door-frame'; FILE interaction.js records frame hits with objectId 'door-frame' and materialType 'wood'.",
+      "prompt": "A single knock on a wooden door frame, solid dense impact, low thud.",
+      "negative_prompt": "speech, music, background noise",
+      "duration": 4,
+      "mode": "oneshot",
+      "match": {
+        "type": "knock",
+        "objectId": "door-frame",
+        "materialType": "wood"
+      },
+      "gain": 0.7
+    },
+    {
+      "id": "hinge_friction_opening",
+      "evidence": "FILE motion.js emits type 'opening' when drag direction is positive or setOpen(true) is called; used for hinge movement.",
+      "prompt": "Steady quiet wooden door hinge friction while opening, creaking hinge squeak, no impacts, continuous low-level creak.",
+      "negative_prompt": "speech, music, background noise",
+      "duration": 4,
+      "mode": "loop",
+      "match": {
+        "type": "opening"
+      },
+      "gain": 0.4
+    },
+    {
+      "id": "hinge_friction_closing",
+      "evidence": "FILE motion.js emits type 'closing' when drag direction is negative or setOpen(false) is called; used for hinge movement.",
+      "prompt": "Steady quiet wooden door hinge friction while closing, gentle creaking, no impacts, continuous low-level creak.",
+      "negative_prompt": "speech, music, background noise",
+      "duration": 4,
+      "mode": "loop",
+      "match": {
+        "type": "closing"
+      },
+      "gain": 0.4
+    },
+    {
+      "id": "door_latch_click",
+      "evidence": "FILE motion.js emits type 'closed' when angle reaches zero after motion or drag; this represents the door becoming fully closed and may have a latch click.",
+      "prompt": "A short mechanical latch click as a door closes and latches shut, dry wooden click.",
+      "negative_prompt": "speech, music, background noise",
+      "duration": 4,
+      "mode": "oneshot",
+      "match": {
+        "type": "closed"
+      },
+      "gain": 0.6
+    }
+  ]
+}

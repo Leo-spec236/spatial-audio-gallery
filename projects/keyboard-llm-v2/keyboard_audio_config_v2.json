@@ -1,0 +1,481 @@
+{
+  "schema_version": "2.0",
+  "source_groups": [
+    {
+      "id": "unstabilized",
+      "key_codes": [
+        "Escape",
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F8",
+        "F9",
+        "F10",
+        "F11",
+        "F12",
+        "PrintScreen",
+        "ScrollLock",
+        "Pause",
+        "Backquote",
+        "Digit1",
+        "Digit2",
+        "Digit3",
+        "Digit4",
+        "Digit5",
+        "Digit6",
+        "Digit7",
+        "Digit8",
+        "Digit9",
+        "Digit0",
+        "Minus",
+        "Equal",
+        "Insert",
+        "Home",
+        "PageUp",
+        "Tab",
+        "KeyQ",
+        "KeyW",
+        "KeyE",
+        "KeyR",
+        "KeyT",
+        "KeyY",
+        "KeyU",
+        "KeyI",
+        "KeyO",
+        "KeyP",
+        "BracketLeft",
+        "BracketRight",
+        "Backslash",
+        "Delete",
+        "End",
+        "PageDown",
+        "CapsLock",
+        "KeyA",
+        "KeyS",
+        "KeyD",
+        "KeyF",
+        "KeyG",
+        "KeyH",
+        "KeyJ",
+        "KeyK",
+        "KeyL",
+        "Semicolon",
+        "Quote",
+        "KeyZ",
+        "KeyX",
+        "KeyC",
+        "KeyV",
+        "KeyB",
+        "KeyN",
+        "KeyM",
+        "Comma",
+        "Period",
+        "Slash",
+        "ArrowUp",
+        "ControlLeft",
+        "MetaLeft",
+        "AltLeft",
+        "AltRight",
+        "MetaRight",
+        "ContextMenu",
+        "ControlRight",
+        "ArrowLeft",
+        "ArrowDown",
+        "ArrowRight"
+      ],
+      "event_sounds": {
+        "actuate": "effect_unstabilized_actuate"
+      },
+      "anchor_mode": "assembled_switch",
+      "gain": 1.0
+    },
+    {
+      "id": "stabilized_long",
+      "key_codes": [
+        "Backspace",
+        "Enter",
+        "ShiftLeft",
+        "ShiftRight"
+      ],
+      "event_sounds": {
+        "actuate": "effect_stabilized_long_actuate"
+      },
+      "anchor_mode": "assembled_switch",
+      "gain": 1.0
+    },
+    {
+      "id": "spacebar",
+      "key_codes": [
+        "Space"
+      ],
+      "event_sounds": {
+        "actuate": "effect_spacebar_actuate"
+      },
+      "anchor_mode": "assembled_switch",
+      "gain": 1.0
+    }
+  ],
+  "effects": [
+    {
+      "id": "effect_unstabilized_actuate",
+      "playback": "oneshot",
+      "selection_policy": "single",
+      "asset_ids": [
+        "asset_unstabilized_actuate"
+      ]
+    },
+    {
+      "id": "effect_stabilized_long_actuate",
+      "playback": "oneshot",
+      "selection_policy": "single",
+      "asset_ids": [
+        "asset_stabilized_long_actuate"
+      ]
+    },
+    {
+      "id": "effect_spacebar_actuate",
+      "playback": "oneshot",
+      "selection_policy": "single",
+      "asset_ids": [
+        "asset_spacebar_actuate"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "id": "asset_unstabilized_actuate",
+      "status": "ready",
+      "target_path": "audio/llm-v2/unstabilized.wav",
+      "generation": {
+        "model_variant": "large_44k_v2",
+        "prompt": "One isolated downstroke strike of a compact unstabilized mechanical keyboard key. A crisp, clean mechanical clack with a clearly defined attack, tight plastic body, controlled low frequencies, and a short natural decay. Dry mono sound suitable for point-source spatialization. One strike only, followed by silence.",
+        "negative_prompt": "Multiple strikes, typing sequence, repeated clicks, release sound, return stroke, paired press and release, alternate takes, continuous loop, muffled attack, excessive bass, exaggerated resonance, long metallic ringing, stereo positioning, directional effects, room reverberation, echo, background noise, speech, music, electronic beep, distortion, clipping.",
+        "duration_seconds": 4,
+        "seed": 42
+      },
+      "postprocess": {
+        "extract_single_event": true,
+        "trim_leading_silence": true,
+        "mono": true,
+        "sample_rate_hz": 44100,
+        "check_clipping": true
+      }
+    },
+    {
+      "id": "asset_stabilized_long_actuate",
+      "status": "ready",
+      "target_path": "audio/llm-v2/stabilized_long.wav",
+      "generation": {
+        "model_variant": "large_44k_v2",
+        "prompt": "One isolated downstroke strike of a stabilized mechanical keyboard long key. A crisp mechanical clack with a clearly defined attack, a slightly fuller plastic body than a compact key, and subtle stabilizer texture integrated into the same strike. Controlled low frequencies and a short natural decay. Dry mono sound suitable for point-source spatialization. One strike only, followed by silence.",
+        "negative_prompt": "Multiple strikes, typing sequence, repeated clicks, release sound, return stroke, paired press and release, alternate takes, continuous loop, muffled attack, excessive bass, exaggerated wire rattle, hollow booming resonance, long metallic ringing, stereo positioning, directional effects, room reverberation, echo, background noise, speech, music, electronic beep, distortion, clipping.",
+        "duration_seconds": 4,
+        "seed": 42
+      },
+      "postprocess": {
+        "extract_single_event": true,
+        "trim_leading_silence": true,
+        "mono": true,
+        "sample_rate_hz": 44100,
+        "check_clipping": true
+      }
+    },
+    {
+      "id": "asset_spacebar_actuate",
+      "status": "ready",
+      "target_path": "audio/llm-v2/spacebar.wav",
+      "generation": {
+        "model_variant": "large_44k_v2",
+        "prompt": "One isolated downstroke strike of a 6.25-unit stabilized mechanical keyboard spacebar. A crisp mechanical clack with a clearly defined attack, a fuller plastic body, and a slightly lower-pitched character than a compact key while remaining bright and articulate. Subtle stabilizer texture, controlled low frequencies, restrained resonance, and a short natural decay. Dry mono sound suitable for point-source spatialization. One strike only, followed by silence.",
+        "negative_prompt": "Multiple strikes, typing sequence, repeated clicks, release sound, return stroke, paired press and release, alternate takes, continuous loop, dull or muffled thud, sub-bass boom, excessive bass, exaggerated hollow resonance, loud stabilizer rattle, long ringing, stereo positioning, directional effects, room reverberation, echo, background noise, speech, music, electronic beep, distortion, clipping.",
+        "duration_seconds": 4,
+        "seed": 42
+      },
+      "postprocess": {
+        "extract_single_event": true,
+        "trim_leading_silence": true,
+        "mono": true,
+        "sample_rate_hz": 44100,
+        "check_clipping": true
+      }
+    }
+  ],
+  "runtime": {
+    "subscription": "controller.subscribe",
+    "enabled_events": [
+      "actuate"
+    ],
+    "listener_mode": "camera_relative_sources",
+    "anchor_local_y_mm": 12,
+    "scene_to_audio_scale": 0.001,
+    "spatial_backend": "existing_spatialSound",
+    "overlap_policy": "independent_instances",
+    "reset_sound_enabled": false
+  },
+  "assumptions": [
+    {
+      "type": "configuration_contract",
+      "description": "本 JSON 是 keyboard_audio_config_v2.json 的新配置格式。后续需要编写读取、资源加载、事件映射和空间坐标更新适配器；附件代码未证明现有项目能够直接读取此格式。"
+    },
+    {
+      "type": "grouping_design",
+      "description": "按代码中的卫星轴结构分为 82 个无卫星轴按键、4 个普通卫星轴长键和 1 个空格键。每组本轮共用一个素材，不按键帽颜色、字符类别或 linear/tactile 类型另建素材。"
+    },
+    {
+      "type": "timbre_design",
+      "description": "清脆起音、受控低频和短尾音是目标听感。长键更丰满、空格键略低沉是设计选择，不是代码计算或实测得到的声学事实。各组初始 gain 均为 1.0，最终听感仍需试听。"
+    },
+    {
+      "type": "event_design",
+      "description": "只订阅 controller.subscribe 转发的 actuate，每个事件播放一次。保持按下时不循环，不播放 reset，不新增触底或回顶事件，也不从鼠标、实体键盘 DOM 事件额外播放。"
+    },
+    {
+      "type": "event_semantics",
+      "description": "actuate 表示触点从未闭合变为闭合，实际条件为位移达到 actuation 阈值，不等同于输入按下或触底碰撞。声音在该时刻播放是本轮设计约定。"
+    },
+    {
+      "type": "scope_decision",
+      "description": "不新增来源过滤。位移保持操作若通过既有物理逻辑产生 actuate，同样播放一次。reset 无论由自然接触复位、参数修改还是程序复位产生，本轮均不播放。"
+    },
+    {
+      "type": "spatial_design",
+      "description": "按本轮明确指定的约定，从 board.keys.get(code) 取得键记录，以 (key.x, 12, key.z) 作为 board 局部毫米坐标中的声源点；不使用 capGroup 的按压高度。"
+    },
+    {
+      "type": "spatial_design",
+      "description": "先刷新 board 与主相机 boardStage.camera 的世界矩阵，将局部点通过 board.matrixWorld 转为世界位置，再通过主相机 matrixWorld 的逆矩阵转为相机局部位置，最后乘 0.001 转为米。此转换顺序是指定设计，不是代码自动推断出的既有音频实现。"
+    },
+    {
+      "type": "spatial_design",
+      "description": "音频监听器固定在原点，前向为 -Z，上向为 +Y。声源使用相机局部坐标，因此不得再额外对监听器应用主相机位姿，以免重复变换。"
+    },
+    {
+      "type": "spatial_design",
+      "description": "拆解视图仍使用组装状态局部点 (key.x, 12, key.z)，不随键帽或壳体的拆解展示偏移移动。声源随 board 整体世界变换和主相机运动持续更新。"
+    },
+    {
+      "type": "integration_requirement",
+      "description": "board 和 boardStage 是主模块中的对象引用，window.keyboardLab 未公开它们。后续适配器需要在能访问 controller、board 和 boardStage.camera 的位置接入；不能假设已有 getBoard、getCamera 或配置加载接口。"
+    },
+    {
+      "type": "backend_contract",
+      "description": "existing_spatialSound 是本轮指定的目标后端标识。本配置不推断该后端的函数签名、单位处理或加载能力，后续适配须核对实际接口。"
+    },
+    {
+      "type": "asset_generation_limit",
+      "description": "三个素材均尚未生成，target_path 是相对于网页 public 目录的计划产物路径。4 秒是生成请求时长，不是最终单次敲击长度。提示词不能保证只生成一次敲击，必须检查、截取一个完整事件、裁剪前导静音、转换为 44100 Hz 单声道并检查削波后再使用。"
+    },
+    {
+      "type": "input_interpretation",
+      "description": "鼠标和实体键盘输入使用页面 press-force 控件提供的模拟外力；附件未测量实体键盘按压力。不得将模拟力、事件速度或声音响度解释为真实按压力测量。"
+    },
+    {
+      "type": "polyphony_design",
+      "description": "每个 actuate 创建独立播放实例，允许不同按键并发及同一按键短尾音重叠；共享素材资源不等于共享一个会被反复重启的播放实例。"
+    }
+  ],
+  "evidence": [
+    {
+      "file": "models/layout.js",
+      "line_start": 1,
+      "line_end": 7,
+      "description": "布局声明毫米尺度与轴体中心定位，KEY_PITCH 为 19.05；width >= 2 时 stabilized 为 true。"
+    },
+    {
+      "file": "models/layout.js",
+      "line_start": 9,
+      "line_end": 22,
+      "description": "定义完整 87 键布局及各键宽度；导出时将布局横纵位置转换为毫米尺度。"
+    },
+    {
+      "file": "models/KeyboardModel.js",
+      "line_start": 16,
+      "line_end": 20,
+      "description": "KeyboardModel 继承 THREE.Group，维护 keys Map，可作为局部声源坐标的父对象。"
+    },
+    {
+      "file": "models/KeyboardModel.js",
+      "line_start": 81,
+      "line_end": 98,
+      "description": "按 KEY_LAYOUT 创建键帽和卫星轴结构；keys Map 的记录包含布局 x、z、宽度及 capGroup 等对象。"
+    },
+    {
+      "file": "models/KeyboardModel.js",
+      "line_start": 114,
+      "line_end": 122,
+      "description": "物理位移乘 1000 用于模型；键帽与卫星轴各有动态高度和拆解展示偏移。本轮锚点明确不采用这些偏移。"
+    },
+    {
+      "file": "physics/SwitchPhysics.js",
+      "line_start": 1,
+      "line_end": 2,
+      "description": "公开物理量使用 SI 单位；须与毫米尺度模型坐标区分。"
+    },
+    {
+      "file": "physics/SwitchPhysics.js",
+      "line_start": 13,
+      "line_end": 25,
+      "description": "默认总行程 0.004 米、触发行程 0.002 米、复位行程 0.0018 米。"
+    },
+    {
+      "file": "physics/SwitchPhysics.js",
+      "line_start": 184,
+      "line_end": 192,
+      "description": "setDisplacement 直接设定位移、清零速度并调用触点更新，因此滑块操作也可能产生 actuate。"
+    },
+    {
+      "file": "physics/SwitchPhysics.js",
+      "line_start": 249,
+      "line_end": 257,
+      "description": "未闭合且 q >= actuation 时闭合；已闭合且 q <= resetPoint 时断开。只有状态改变才入队 actuate 或 reset。"
+    },
+    {
+      "file": "KeyboardController.js",
+      "line_start": 7,
+      "line_end": 12,
+      "description": "各键独立创建 SwitchPhysics；subscribe 返回取消订阅函数；flush 消费物理事件并附加 code，time 使用 controller.time。"
+    },
+    {
+      "file": "KeyboardController.js",
+      "line_start": 13,
+      "line_end": 28,
+      "description": "press 按来源记录模拟外力并取最大值，release 按来源释放；hold 直接设定位移并立即 flush。输入释放不必立即导致接触复位。"
+    },
+    {
+      "file": "SceneStage.js",
+      "line_start": 14,
+      "line_end": 16,
+      "description": "SceneStage 创建 PerspectiveCamera 与 OrbitControls。"
+    },
+    {
+      "file": "SceneStage.js",
+      "line_start": 28,
+      "line_end": 34,
+      "description": "setModel 将模型加入场景；主相机可被视图控制改变，render 中继续更新 OrbitControls。"
+    },
+    {
+      "file": "main.js.before-spatial",
+      "line_start": 28,
+      "line_end": 29,
+      "description": "inputForce 来自 press-force 控件，down 将该值作为模拟 force 传入 controller.press。"
+    },
+    {
+      "file": "main.js.before-spatial",
+      "line_start": 43,
+      "line_end": 57,
+      "description": "鼠标命中、试压按钮和实体键盘分别改变输入来源；实体键盘映射受捕获开关和画布焦点限制，并忽略重复 keydown。"
+    },
+    {
+      "file": "main.js.before-spatial",
+      "line_start": 67,
+      "line_end": 70,
+      "description": "controller.step 先于 board.update 和渲染；主键盘与剖面分别使用 boardStage 和 detailStage；事件另外被转发为 keyboardlab:*。"
+    },
+    {
+      "file": "main.js.before-spatial",
+      "line_start": 81,
+      "line_end": 81,
+      "description": "window.keyboardLab 提供 on 和状态接口，但未公开 board 或 boardStage.camera。"
+    }
+  ],
+  "validation": {
+    "key_coverage": {
+      "status": "已按附件展开清单与本配置逐项核对，未执行网页测试",
+      "expected_count": 87,
+      "configured_count": 87,
+      "unique_count": 87,
+      "group_counts": {
+        "unstabilized": 82,
+        "stabilized_long": 4,
+        "spacebar": 1
+      },
+      "missing_key_codes": [],
+      "duplicate_key_codes": [],
+      "extra_key_codes": []
+    },
+    "reference_integrity": {
+      "status": "已对本配置中的标识逐项核对，未通过适配器加载验证",
+      "source_group_ids_unique": true,
+      "effect_ids_unique": true,
+      "asset_ids_unique": true,
+      "all_event_sound_references_defined": true,
+      "all_asset_references_defined": true,
+      "assets_per_effect": 1,
+      "undefined_effect_ids": [],
+      "undefined_asset_ids": [],
+      "reset_mappings_count": 0
+    },
+    "pending_checks": [
+      {
+        "id": "json_and_adapter_loading",
+        "status": "pending",
+        "action": "保存为 keyboard_audio_config_v2.json 后，用 JSON 解析器加载，并由新增适配器校验字段、枚举值及引用。",
+        "expected": "配置可解析；现有项目经适配后才能使用，不将配置文件存在等同于已接入。"
+      },
+      {
+        "id": "asset_quality",
+        "status": "pending",
+        "action": "生成每组素材后逐一试听和检查波形，截取一次完整按下敲击，裁剪前导静音，保留短尾音并移除多余空白，转换为 44100 Hz 单声道 WAV，检查削波。",
+        "expected": "每个文件仅有一次敲击，无返回音、连续打字、预制方向、房间混响或背景噪声；不把 4 秒生成窗口直接当作最终长度。"
+      },
+      {
+        "id": "asset_paths",
+        "status": "pending",
+        "action": "将处理后的文件保存到 public/audio/llm-v2/ 对应路径，并通过网页实际部署地址加载。",
+        "expected": "三个 target_path 均能解析到实际素材；生成并验收前维持 pending，不声称文件已存在。"
+      },
+      {
+        "id": "actuate_only",
+        "status": "pending",
+        "action": "逐键跨过触发阈值、保持按下再释放，同时记录物理事件和播放次数。",
+        "expected": "每次 actuate 恰好创建一个单次播放实例；保持按下不循环，reset 不播放，不出现 DOM 输入路径的额外音效。"
+      },
+      {
+        "id": "threshold_and_hold",
+        "status": "pending",
+        "action": "测试未达到 actuation 的浅按，以及位移保持滑块跨过 actuation 阈值的操作。",
+        "expected": "没有 actuate 时不播放；滑块通过既有逻辑产生 actuate 时同样播放，不新增来源过滤。"
+      },
+      {
+        "id": "subscription_lifecycle",
+        "status": "pending",
+        "action": "初始化、销毁并重新初始化适配器，观察同一 actuate 的回调和播放次数。",
+        "expected": "仅使用 controller.subscribe 一条声音订阅路径，销毁时取消订阅；不因重复初始化叠加播放。"
+      },
+      {
+        "id": "camera_relative_coordinates",
+        "status": "pending",
+        "action": "刷新世界矩阵，逐项核对 board 局部点到世界、世界到主相机局部、最后乘 0.001 的坐标结果。",
+        "expected": "音频监听器固定原点且方向为 -Z、+Y；无父级缩放时相邻 1u 键距离为 0.01905 米，无重复缩放或重复相机变换。"
+      },
+      {
+        "id": "dynamic_spatial_updates",
+        "status": "pending",
+        "action": "播放期间旋转和平移主相机，并改变键盘整体变换；切换 assembled、transparent 和 exploded 视图。",
+        "expected": "活动声源持续跟随键盘整体变换和相机运动；局部点始终为 (key.x, 12, key.z)，不跟随拆解零件偏移，不由剖面场景重复播放。"
+      },
+      {
+        "id": "update_order",
+        "status": "pending",
+        "action": "检查物理事件到来时的播放排队及每帧更新顺序。",
+        "expected": "在相机 OrbitControls 和世界矩阵更新后使用最新相对坐标，不读取过期矩阵；活动声音也持续更新位置。"
+      },
+      {
+        "id": "overlap_and_output",
+        "status": "pending",
+        "action": "快速连续按键及同时按多个键，检查实例数量、尾音、声像、总输出峰值和后端资源回收。",
+        "expected": "每个事件使用独立实例，素材不因共享播放节点而互相截断；无明显削波，结束后回收实例。"
+      },
+      {
+        "id": "backend_compatibility",
+        "status": "pending",
+        "action": "核对 existing_spatialSound 的实际加载、单次播放、位置更新、米制坐标及固定监听器接口，并验证浏览器音频启动流程。",
+        "expected": "后端行为符合本配置约定；未完成实际接入前不声明运行验证通过。"
+      }
+    ]
+  }
+}
